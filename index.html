@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ALNEAR / works</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#141414;--bg2:#1c1c1c;--line:#2e2e2e;--muted:#5a5a5a;--mid:#999;--text:#d4d4d4;--bright:#f0f0f0;--accent:#e8e0d0;--ac2:#666}
+body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;font-size:13px;line-height:1.7;min-height:100vh}
+header{padding:56px 48px 36px;border-bottom:1px solid var(--line)}
+.sl{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,6vw,72px);font-weight:300;color:var(--bright);line-height:1.1;letter-spacing:-.02em;margin-bottom:20px}
+h1 em{font-style:normal;font-family:'Space Mono',monospace;color:var(--muted);font-size:.22em;letter-spacing:.18em;display:block;margin-top:10px}
+.ha{display:flex;gap:10px;flex-wrap:wrap}
+.bp,.bc{background:none;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;padding:7px 20px;text-decoration:none;display:inline-flex;align-items:center;border:1px solid var(--line);color:var(--muted)}
+.bp{border-color:var(--ac2);color:var(--mid)}.bp:hover{border-color:var(--accent);color:var(--accent)}
+.bc:hover{border-color:var(--mid);color:var(--text)}
+.fb{padding:18px 48px;border-bottom:1px solid var(--line);display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.fl{font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-right:8px}
+.fn{background:none;border:1px solid var(--line);color:var(--mid);padding:4px 14px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;cursor:pointer;transition:all .2s;text-transform:uppercase}
+.fn:hover,.fn.active{border-color:var(--accent);color:var(--accent);background:rgba(232,224,208,.05)}
+.fs{flex:1}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:1px;background:var(--line)}
+.track{background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .3s}
+.track:hover{background:var(--bg2)}
+.track.hidden{display:none!important}
+.num{position:absolute;top:20px;right:20px;font-size:10px;color:var(--muted);letter-spacing:.1em;z-index:5;pointer-events:none}
+.ew{position:relative;width:100%;padding-top:56.25%;background:#000;border-bottom:1px solid var(--line);overflow:hidden;cursor:pointer}
+.et{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s;z-index:1}
+.ew.on .et{opacity:0;pointer-events:none}
+.ep{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;pointer-events:none;transition:opacity .3s}
+.ep svg{width:52px;height:52px;transition:transform .2s}
+.ew:hover .ep svg{transform:scale(1.1)}
+.ew.on .ep{opacity:0}
+.ew iframe{position:absolute;inset:0;width:100%;height:100%;border:none;z-index:3}
+.ti{padding:24px 28px 28px;flex:1;display:flex;flex-direction:column;gap:12px;cursor:pointer}
+.tm{display:flex;flex-direction:column;gap:8px}
+.tt{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:var(--bright);line-height:1.3}
+.tc{display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.1em;color:var(--mid)}
+.tg2{display:flex;align-items:center;gap:8px;font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;font-weight:300;color:var(--mid)}
+.tl{font-family:'Space Mono',monospace;font-style:normal;font-size:8px;letter-spacing:.15em;color:var(--ac2);border:1px solid var(--ac2);padding:1px 5px;text-transform:uppercase;flex-shrink:0}
+.tcr{display:flex;flex-direction:column;gap:3px}
+.cl{font-size:9px;letter-spacing:.12em;color:var(--muted)}.cl span{color:var(--ac2)}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:2px 8px}
+footer{padding:40px 48px;border-top:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.2em;text-transform:uppercase;display:flex;justify-content:space-between}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.open{opacity:1;pointer-events:all}
+.panel{background:var(--bg2);border:1px solid var(--line);position:relative;transform:translateY(20px);transition:transform .3s;width:100%}
+.overlay.open .panel{transform:translateY(0)}
+.xbtn{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.5);border:1px solid var(--line);color:var(--mid);width:32px;height:32px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10}
+.xbtn:hover{border-color:var(--accent);color:var(--accent)}
+/* VIDEO */
+#vmo .panel{max-width:860px}
+.vmp{position:relative;width:100%;padding-top:56.25%}
+.vmp iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.vmi2{padding:20px 28px 24px;display:flex;flex-direction:column;gap:10px}
+.vmt{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--bright)}
+/* PROFILE */
+#pmo{align-items:flex-start;overflow-y:auto;z-index:1001}
+#pmo .panel{max-width:760px;margin:auto}
+.mh{padding:36px 40px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start}
+.mt{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--bright)}
+.mt span{display:block;font-size:10px;font-family:'Space Mono',monospace;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.mc{background:none;border:1px solid var(--line);color:var(--mid);width:36px;height:36px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.mc:hover{border-color:var(--accent);color:var(--accent)}
+.mb{padding:32px 40px 48px;display:flex;flex-direction:column;gap:36px}
+.ms{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--ac2);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.pl{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;line-height:2;color:var(--text)}
+.pl strong{color:var(--bright);font-weight:400}
+.cn{border-left:2px solid var(--ac2);padding:14px 20px;background:rgba(232,224,208,.03)}
+.cn p{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;font-style:italic;color:var(--mid);line-height:1.9}
+.wl{display:flex;flex-direction:column;gap:18px}
+.wb{border-left:1px solid var(--line);padding-left:16px}
+.wbn{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.wb ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.wb li{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.5}
+.wb li span{color:var(--muted);font-size:12px}
+.ug{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.uc{border:1px solid var(--line);padding:20px;position:relative}
+.un{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--bright);margin-bottom:4px}
+.uy{font-size:9px;color:var(--muted);letter-spacing:.08em;margin-bottom:10px}
+.ud{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.7}
+.ul2{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
+.ul2 a{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:2px 8px;text-decoration:none;transition:all .2s}
+.ul2 a:hover{border-color:var(--ac2);color:var(--text)}
+.us{position:absolute;top:10px;right:10px;font-size:8px;letter-spacing:.1em;color:var(--muted);border:1px solid var(--line);padding:1px 6px;text-transform:uppercase}
+.cb{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;color:var(--mid);line-height:2.2}
+.cb a{color:var(--accent);text-decoration:none}
+/* BGM */
+#bmo{z-index:1002}
+#bmo .panel{max-width:640px;max-height:88vh;display:flex;flex-direction:column}
+.bmh{padding:22px 28px 18px;border-bottom:1px solid var(--line);flex-shrink:0}
+.bmht{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--bright)}
+.bmht span{display:block;font-size:9px;font-family:'Space Mono',monospace;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.bmp{padding:14px 28px;border-bottom:1px solid var(--line);flex-shrink:0}
+.bmp-now{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--accent);margin-bottom:10px;min-height:20px}
+.bmp-ctrl{display:flex;align-items:center;gap:8px}
+.pbtn{background:none;border:1px solid var(--line);color:var(--mid);padding:5px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;transition:all .2s;text-transform:uppercase;flex-shrink:0}
+.pbtn:hover,.pbtn.on{border-color:var(--accent);color:var(--accent)}
+.seek{flex:1;-webkit-appearance:none;appearance:none;height:1px;background:var(--line);outline:none;cursor:pointer}
+.seek::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;background:var(--accent);border-radius:50%;cursor:pointer}
+.ptime{font-size:9px;color:var(--muted);letter-spacing:.06em;min-width:76px;text-align:right;flex-shrink:0}
+.bml{overflow-y:auto;flex:1}
+.bli{display:flex;align-items:center;gap:10px;padding:9px 28px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s}
+.bli:hover{background:rgba(232,224,208,.04)}
+.bli.on{background:rgba(232,224,208,.06)}
+.bli-n{font-size:9px;color:var(--muted);width:18px;flex-shrink:0}
+.bli-t{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;color:var(--text);flex:1}
+.bli.on .bli-t{color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+  <p class="sl">ALNEAR / works</p>
+  <h1>ALNEAR<br><em>composer / sound producer &#8212; works &amp; information</em></h1>
+  <div class="ha">
+    <button class="bp" id="btn-profile">&#9656; profile &amp; units</button>
+    <button class="bc" id="btn-bgm">&#9834; BGM samples</button>
+    <a class="bc" href="https://x.com/aruna_ryuki" target="_blank">&#8599; DM on X</a>
+    <button class="bc" id="copy-email-top">&#9993; copy email</button>
+  </div>
+</header>
+<div class="fb">
+  <span class="fl">sort</span>
+  <button class="fn active" data-sort="new">new &#8594; old</button>
+  <button class="fn" data-sort="old">old &#8594; new</button>
+</div>
+<main class="grid" id="grid">
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Oct 31, 2025" data-vid="nkse8zUrUz8" data-title="RE:EXiSTENCE" data-brand="CRYSTALiA" data-gametitle="CRACK≡TRICK!" data-credits="lyric|Ryohei Haduki (U-RASIA)||music|ALNEAR||vocal|和良ゆの||produce|RESTARiZE" data-tags="vocal,op,sound produce"><span class="num">01</span><div class="ew" data-vid="nkse8zUrUz8"><img class="et" src="https://img.youtube.com/vi/nkse8zUrUz8/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">RE:EXiSTENCE</span><div class="tc"><span class="tl">brand</span>CRYSTALiA</div><div class="tg2"><span class="tl">title</span>CRACK≡TRICK!</div><div class="tcr"><p class="cl"><span>lyric</span> Ryohei Haduki (U-RASIA)</p>
+<p class="cl"><span>music</span> ALNEAR</p>
+<p class="cl"><span>vocal</span> 和良ゆの</p>
+<p class="cl"><span>produce</span> RESTARiZE</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Aug 19, 2024" data-vid="nPRAH0pYanM" data-title="TSUBAKi-IRO-KOiUTA" data-brand="CRYSTALiA" data-gametitle="絆きらめく恋いろは 椿恋歌" data-credits="lyric|ALNEAR,SALASALA||music|ALNEAR||vocal|冬乃桜" data-tags="vocal,op,sound produce"><span class="num">02</span><div class="ew" data-vid="nPRAH0pYanM"><img class="et" src="https://img.youtube.com/vi/nPRAH0pYanM/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">TSUBAKi-IRO-KOiUTA</span><div class="tc"><span class="tl">brand</span>CRYSTALiA</div><div class="tg2"><span class="tl">title</span>絆きらめく恋いろは 椿恋歌</div><div class="tcr"><p class="cl"><span>lyric</span> ALNEAR,SALASALA</p>
+<p class="cl"><span>music</span> ALNEAR</p>
+<p class="cl"><span>vocal</span> 冬乃桜</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Aug 19, 2024" data-vid="OrMeihnkohE" data-title="紅ノ刃" data-brand="CRYSTALiA" data-gametitle="紅月ゆれる恋あかり" data-credits="lyric|ALNEAR.SALASALA||music|ALNEAR||vocal|No:R||produce|ATRACTiVElll" data-tags="vocal,op,sound produce"><span class="num">03</span><div class="ew" data-vid="OrMeihnkohE"><img class="et" src="https://img.youtube.com/vi/OrMeihnkohE/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">紅ノ刃</span><div class="tc"><span class="tl">brand</span>CRYSTALiA</div><div class="tg2"><span class="tl">title</span>紅月ゆれる恋あかり</div><div class="tcr"><p class="cl"><span>lyric</span> ALNEAR.SALASALA</p>
+<p class="cl"><span>music</span> ALNEAR</p>
+<p class="cl"><span>vocal</span> No:R</p>
+<p class="cl"><span>produce</span> ATRACTiVElll</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Aug 19, 2024" data-vid="H2wUKClIHkE" data-title="JuDGMENT/SHΛDoW～T06481T0～" data-brand="CRYSTALiA" data-gametitle="白刃きらめく恋しらべ" data-credits="lyric|ALNEAR・No:R||music|ALNEAR||vocal|No:R||produce|ATRACTiVElll" data-tags="vocal,op,sound produce"><span class="num">04</span><div class="ew" data-vid="H2wUKClIHkE"><img class="et" src="https://img.youtube.com/vi/H2wUKClIHkE/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">JuDGMENT/SHΛDoW～T06481T0～</span><div class="tc"><span class="tl">brand</span>CRYSTALiA</div><div class="tg2"><span class="tl">title</span>白刃きらめく恋しらべ</div><div class="tcr"><p class="cl"><span>lyric</span> ALNEAR・No:R</p>
+<p class="cl"><span>music</span> ALNEAR</p>
+<p class="cl"><span>vocal</span> No:R</p>
+<p class="cl"><span>produce</span> ATRACTiVElll</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Feb 22, 2024" data-vid="fW1sl0byeQA" data-title="双ノ軌跡" data-brand="CRYSTALiA" data-gametitle="刹那にかける恋はなび" data-credits="lyric|ALNEAR||music|ALNEAR||vocal|冬乃桜||produce|RESTARiZE" data-tags="vocal,op,sound produce"><span class="num">05</span><div class="ew" data-vid="fW1sl0byeQA"><img class="et" src="https://img.youtube.com/vi/fW1sl0byeQA/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">双ノ軌跡</span><div class="tc"><span class="tl">brand</span>CRYSTALiA</div><div class="tg2"><span class="tl">title</span>刹那にかける恋はなび</div><div class="tcr"><p class="cl"><span>lyric</span> ALNEAR</p>
+<p class="cl"><span>music</span> ALNEAR</p>
+<p class="cl"><span>vocal</span> 冬乃桜</p>
+<p class="cl"><span>produce</span> RESTARiZE</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Jan 27, 2023" data-vid="MfUqM76UoGE" data-title="S4cRED†SORROW" data-brand="CRYSTALiA" data-gametitle="RE:D Cherish! -Eternity Blood-" data-credits="lyric|NEQRE||music|ALNEAR||vocal|NEQRE||produce|PSY.parΛDRUXX" data-tags="vocal,op,sound produce"><span class="num">06</span><div class="ew" data-vid="MfUqM76UoGE"><img class="et" src="https://img.youtube.com/vi/MfUqM76UoGE/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">S4cRED†SORROW</span><div class="tc"><span class="tl">brand</span>CRYSTALiA</div><div class="tg2"><span class="tl">title</span>RE:D Cherish! -Eternity Blood-</div><div class="tcr"><p class="cl"><span>lyric</span> NEQRE</p>
+<p class="cl"><span>music</span> ALNEAR</p>
+<p class="cl"><span>vocal</span> NEQRE</p>
+<p class="cl"><span>produce</span> PSY.parΛDRUXX</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Feb 25, 2022" data-vid="SGz-EnYjPEI" data-title="BLOOD/ORDER" data-brand="CRYSTALiA" data-gametitle="RE:D Cherish!" data-credits="lyric|NEQRE||music|ALNEAR||vocal|NEQRE||produce|PSY.parΛDRUXX" data-tags="vocal,op,sound produce"><span class="num">07</span><div class="ew" data-vid="SGz-EnYjPEI"><img class="et" src="https://img.youtube.com/vi/SGz-EnYjPEI/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">BLOOD/ORDER</span><div class="tc"><span class="tl">brand</span>CRYSTALiA</div><div class="tg2"><span class="tl">title</span>RE:D Cherish!</div><div class="tcr"><p class="cl"><span>lyric</span> NEQRE</p>
+<p class="cl"><span>music</span> ALNEAR</p>
+<p class="cl"><span>vocal</span> NEQRE</p>
+<p class="cl"><span>produce</span> PSY.parΛDRUXX</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Jan 25, 2019" data-vid="G8TcTTxDO6g" data-title="ABILiTY To BELiEVE" data-brand="Fluorite / FANZA GAMES DiGination" data-gametitle="ソーサレス アライヴ！" data-credits="lyric|琉姫アルナ||music|琉姫アルナ||vocal|AiRI" data-tags="vocal,op,sound produce"><span class="num">08</span><div class="ew" data-vid="G8TcTTxDO6g"><img class="et" src="https://img.youtube.com/vi/G8TcTTxDO6g/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">ABILiTY To BELiEVE</span><div class="tc"><span class="tl">brand</span>Fluorite / FANZA GAMES DiGination</div><div class="tg2"><span class="tl">title</span>ソーサレス アライヴ！</div><div class="tcr"><p class="cl"><span>lyric</span> 琉姫アルナ</p>
+<p class="cl"><span>music</span> 琉姫アルナ</p>
+<p class="cl"><span>vocal</span> AiRI</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="May 25, 2018" data-vid="EaPkNYhh2yk" data-title="桜色リフレイン Spring has come" data-brand="Hearts" data-gametitle="恋するココロと魔法のコトバ" data-credits="lyric|琉姫アルナ・桜楽サラ||music|琉姫アルナ||vocal|冬乃桜||produce|ALVINE" data-tags="vocal,op,sound produce"><span class="num">09</span><div class="ew" data-vid="EaPkNYhh2yk"><img class="et" src="https://img.youtube.com/vi/EaPkNYhh2yk/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">桜色リフレイン Spring has come</span><div class="tc"><span class="tl">brand</span>Hearts</div><div class="tg2"><span class="tl">title</span>恋するココロと魔法のコトバ</div><div class="tcr"><p class="cl"><span>lyric</span> 琉姫アルナ・桜楽サラ</p>
+<p class="cl"><span>music</span> 琉姫アルナ</p>
+<p class="cl"><span>vocal</span> 冬乃桜</p>
+<p class="cl"><span>produce</span> ALVINE</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Nov 24, 2017" data-vid="lOEuuTP6vC0" data-title="TSUBAKi-IRO-KOiUTA" data-brand="CRYSTALiA" data-gametitle="絆きらめく恋いろは" data-credits="lyric|ALNEAR/叢神智斗紅||music|ALNEAR||vocal|KEiNA" data-tags="vocal,op,sound produce"><span class="num">10</span><div class="ew" data-vid="lOEuuTP6vC0"><img class="et" src="https://img.youtube.com/vi/lOEuuTP6vC0/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">TSUBAKi-IRO-KOiUTA</span><div class="tc"><span class="tl">brand</span>CRYSTALiA</div><div class="tg2"><span class="tl">title</span>絆きらめく恋いろは</div><div class="tcr"><p class="cl"><span>lyric</span> ALNEAR/叢神智斗紅</p>
+<p class="cl"><span>music</span> ALNEAR</p>
+<p class="cl"><span>vocal</span> KEiNA</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Sep 29, 2017" data-vid="IeISlgfOfG0" data-title="SHiNiNG!D-BLADE" data-brand="Project.L.A" data-gametitle="Dolphin Blade" data-credits="lyric|琉姫アルナ・桜楽サラ||music|琉姫アルナ||vocal|冬乃桜||produce|ALVINE" data-tags="vocal,op,sound produce"><span class="num">11</span><div class="ew" data-vid="IeISlgfOfG0"><img class="et" src="https://img.youtube.com/vi/IeISlgfOfG0/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">SHiNiNG!D-BLADE</span><div class="tc"><span class="tl">brand</span>Project.L.A</div><div class="tg2"><span class="tl">title</span>Dolphin Blade</div><div class="tcr"><p class="cl"><span>lyric</span> 琉姫アルナ・桜楽サラ</p>
+<p class="cl"><span>music</span> 琉姫アルナ</p>
+<p class="cl"><span>vocal</span> 冬乃桜</p>
+<p class="cl"><span>produce</span> ALVINE</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Sep 29, 2017" data-vid="CPKWyQx-Ve8" data-title="CHANGE 2 LOVER!" data-brand="ユニゾンシフト" data-gametitle="恋とHしかしていない！" data-credits="lyric|ALNEAR||music|ALNEAR||vocal|冬乃桜||produce|RESTARiZE" data-tags="vocal,op,sound produce"><span class="num">12</span><div class="ew" data-vid="CPKWyQx-Ve8"><img class="et" src="https://img.youtube.com/vi/CPKWyQx-Ve8/hqdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">CHANGE 2 LOVER!</span><div class="tc"><span class="tl">brand</span>ユニゾンシフト</div><div class="tg2"><span class="tl">title</span>恋とHしかしていない！</div><div class="tcr"><p class="cl"><span>lyric</span> ALNEAR</p>
+<p class="cl"><span>music</span> ALNEAR</p>
+<p class="cl"><span>vocal</span> 冬乃桜</p>
+<p class="cl"><span>produce</span> RESTARiZE</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="May 26, 2017" data-vid="8FURDglOMAg" data-title="Honey and Devil" data-brand="eufonie" data-gametitle="はにデビ！ Honey and Devil" data-credits="lyric|相良中通||music|琉姫アルナ||vocal|AiRI" data-tags="vocal,op,sound produce"><span class="num">13</span><div class="ew" data-vid="8FURDglOMAg"><img class="et" src="https://img.youtube.com/vi/8FURDglOMAg/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">Honey and Devil</span><div class="tc"><span class="tl">brand</span>eufonie</div><div class="tg2"><span class="tl">title</span>はにデビ！ Honey and Devil</div><div class="tcr"><p class="cl"><span>lyric</span> 相良中通</p>
+<p class="cl"><span>music</span> 琉姫アルナ</p>
+<p class="cl"><span>vocal</span> AiRI</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="May 27, 2016" data-vid="FIOX2BsHsOg" data-title="DiVE 2 WORLD" data-brand="Hearts" data-gametitle="ナツイロココロログ" data-credits="lyric|琉姫アルナ||music|琉姫アルナ||vocal|狛茉璃奈||produce|ALVINE" data-tags="vocal,op,sound produce"><span class="num">14</span><div class="ew" data-vid="FIOX2BsHsOg"><img class="et" src="https://img.youtube.com/vi/FIOX2BsHsOg/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">DiVE 2 WORLD</span><div class="tc"><span class="tl">brand</span>Hearts</div><div class="tg2"><span class="tl">title</span>ナツイロココロログ</div><div class="tcr"><p class="cl"><span>lyric</span> 琉姫アルナ</p>
+<p class="cl"><span>music</span> 琉姫アルナ</p>
+<p class="cl"><span>vocal</span> 狛茉璃奈</p>
+<p class="cl"><span>produce</span> ALVINE</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Aug 13, 2015" data-vid="KVVSCu3ihRU" data-title="LOVE PHASE" data-brand="戯画" data-gametitle="恋愛フェイズ" data-credits="lyric|琉姫アルナ・桜楽サラ||music|琉姫アルナ||vocal|nao" data-tags="vocal,op,sound produce"><span class="num">15</span><div class="ew" data-vid="KVVSCu3ihRU"><img class="et" src="https://img.youtube.com/vi/KVVSCu3ihRU/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">LOVE PHASE</span><div class="tc"><span class="tl">brand</span>戯画</div><div class="tg2"><span class="tl">title</span>恋愛フェイズ</div><div class="tcr"><p class="cl"><span>lyric</span> 琉姫アルナ・桜楽サラ</p>
+<p class="cl"><span>music</span> 琉姫アルナ</p>
+<p class="cl"><span>vocal</span> nao</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Jun 27, 2014" data-vid="WBmum2Q6ipA" data-title="Another Reality" data-brand="戯画" data-gametitle="ハーヴェストオーバーレイ" data-credits="lyric|琉姫アルナ||music|琉姫アルナ||vocal|nao" data-tags="vocal,op,sound produce"><span class="num">16</span><div class="ew" data-vid="WBmum2Q6ipA"><img class="et" src="https://img.youtube.com/vi/WBmum2Q6ipA/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">Another Reality</span><div class="tc"><span class="tl">brand</span>戯画</div><div class="tg2"><span class="tl">title</span>ハーヴェストオーバーレイ</div><div class="tcr"><p class="cl"><span>lyric</span> 琉姫アルナ</p>
+<p class="cl"><span>music</span> 琉姫アルナ</p>
+<p class="cl"><span>vocal</span> nao</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="May 30, 2014" data-vid="H0aPVAPslWg" data-title="はるかかなた" data-brand="SORAHANE" data-gametitle="はるかかなた" data-credits="lyric|ポチくん||music|琉姫アルナ||vocal|月子||produce|ALVINE" data-tags="vocal,op,sound produce"><span class="num">17</span><div class="ew" data-vid="H0aPVAPslWg"><img class="et" src="https://img.youtube.com/vi/H0aPVAPslWg/maxresdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">はるかかなた</span><div class="tc"><span class="tl">brand</span>SORAHANE</div><div class="tg2"><span class="tl">title</span>はるかかなた</div><div class="tcr"><p class="cl"><span>lyric</span> ポチくん</p>
+<p class="cl"><span>music</span> 琉姫アルナ</p>
+<p class="cl"><span>vocal</span> 月子</p>
+<p class="cl"><span>produce</span> ALVINE</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Nov 22, 2012" data-vid="CIbmGsKsfcg" data-title="GATE of ARCANA" data-brand="catwalk" data-gametitle="魔王と踊れ！ CODE:ARCANA" data-credits="lyric|琉姫アルナ・桜沢大・あおまふ||music|琉姫アルナ||vocal|夢路Ruri||produce|ALVINE" data-tags="vocal,op,sound produce"><span class="num">18</span><div class="ew" data-vid="CIbmGsKsfcg"><img class="et" src="https://img.youtube.com/vi/CIbmGsKsfcg/hqdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">GATE of ARCANA</span><div class="tc"><span class="tl">brand</span>catwalk</div><div class="tg2"><span class="tl">title</span>魔王と踊れ！ CODE:ARCANA</div><div class="tcr"><p class="cl"><span>lyric</span> 琉姫アルナ・桜沢大・あおまふ</p>
+<p class="cl"><span>music</span> 琉姫アルナ</p>
+<p class="cl"><span>vocal</span> 夢路Ruri</p>
+<p class="cl"><span>produce</span> ALVINE</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+<article class="track" data-genre="vocal op-ed sound-produce" data-date="Mar 23, 2012" data-vid="6imcs36jhWY" data-title="The answer BLOOD" data-brand="ocelot" data-gametitle="葬送鬼レギナルト" data-credits="lyric|桜沢大・あおまふ||music|琉姫アルナ||vocal|夢路Ruri" data-tags="vocal,op,sound produce"><span class="num">19</span><div class="ew" data-vid="6imcs36jhWY"><img class="et" src="https://img.youtube.com/vi/6imcs36jhWY/hqdefault.jpg" alt=""><div class="ep"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="#e8e0d0" stroke-width="1"/><polygon points="21,17 38,26 21,35" fill="#e8e0d0"/></svg></div></div><div class="ti"><div class="tm"><span class="tt">The answer BLOOD</span><div class="tc"><span class="tl">brand</span>ocelot</div><div class="tg2"><span class="tl">title</span>葬送鬼レギナルト</div><div class="tcr"><p class="cl"><span>lyric</span> 桜沢大・あおまふ</p>
+<p class="cl"><span>music</span> 琉姫アルナ</p>
+<p class="cl"><span>vocal</span> 夢路Ruri</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">op</span><span class="tag">sound produce</span></div></div></article>
+</main>
+<footer><span>ALNEAR / works</span><span>&#169; ALNEAR</span></footer>
+
+<!-- VIDEO MODAL -->
+<div class="overlay" id="vmo">
+  <div class="panel">
+    <button class="xbtn" id="vmo-x">&#10005;</button>
+    <div class="vmp"><iframe id="vmi" src="" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
+    <div class="vmi2">
+      <div class="vmt" id="vmt"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px"><div id="vml"></div><div id="vmr"></div></div>
+      <div class="tags" id="vmtg"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="overlay" id="pmo" style="align-items:flex-start;overflow-y:auto;z-index:1001">
+  <div class="panel" style="max-width:960px;margin:auto;transform:none">
+    <div class="mh"><div class="mt"><span>composer / sound producer</span>ALNEAR</div><button class="mc" id="pmo-x">&#10005;</button></div>
+    <div class="mb">
+      <div><p class="ms">profile</p><p class="pl">作詞・作曲・編曲・ミックスまで一貫制作可能。<br>美少女ゲームを中心に、BGM・OP/ED主題歌など<strong>50タイトル以上</strong>に楽曲を提供。<br><strong>作品世界に寄り添う音作り</strong>と、エモーショナルで印象に残る旋律が強みです。</p></div>
+      <div><p class="ms">chart</p><div class="cn"><p>2025年6月、ALNEAR &times; 和良ゆの の RESTARiZE ユニットアルバム『RE:WHITE』が「iTunes Store J-Pop トップアルバム（アメリカ）」にて最高29位を記録。</p></div></div>
+      <div><p class="ms">major works</p><div class="wl">
+        <div class="wb"><p class="wbn">ALICESOFT</p><ul><li>『母猫漫』 <span>&#8212; 全BGM</span></li><li>『は～とふるママン』 <span>&#8212; 全BGM・主題歌</span></li></ul></div>
+        <div class="wb"><p class="wbn">FANZA GAMES</p><ul><li>『ソーサレス＊アライヴ！』 <span>&#8212; 全楽曲制作・サウンドプロデュース</span></li><li>『ミナシゴノシゴト』 <span>&#8212; BGM提供</span></li></ul></div>
+        <div class="wb"><p class="wbn">みなとカーニバル</p><ul><li>『和香様の座する世界』 <span>&#8212; 全BGM</span></li><li>『蒸堂さんのバージンロード』 <span>&#8212; 挿入歌・BGMなど多数</span></li><li>『蒸堂さんの純愛ロード』 <span>&#8212; 全BGM</span></li></ul></div>
+        <div class="wb"><p class="wbn">戯画</p><ul><li>『ハーヴェストオーバーレイ』 <span>&#8212; 全楽曲</span></li><li>『マテリアルブレイブ』 <span>&#8212; BGM・挿入歌</span></li><li>『マテリアルブレイブ イグニッション』 <span>&#8212; BGM</span></li><li>『シロガネ×スピリッツ！』 <span>&#8212; BGM</span></li></ul></div>
+        <div class="wb"><p class="wbn">CRYSTALiA</p><ul><li>KATANAシリーズ <span>&#8212; 全楽曲制作・サウンドディレクション</span></li><li>レリッシュシリーズ <span>&#8212; 全楽曲制作・サウンドディレクション</span></li><li>CRACK≡TRICK! <span>&#8212; 全楽曲制作・サウンドディレクション</span></li></ul></div>
+        <div class="wb"><p class="wbn">Lose</p><ul><li>『まいてつ』シリーズ <span>&#8212; ポーレットOP／日々姫 OP</span></li></ul></div>
+        <div class="wb"><p class="wbn">Ocelot</p><ul><li>『神曲奏界ポリフォニカ F』 <span>&#8212; 主題歌・BGM</span></li></ul></div>
+        <div class="wb"><p class="wbn">eufonie</p><ul><li>『恋剣乙女 ～再燃～』 <span>&#8212; BGM</span></li></ul></div>
+        <div class="wb"><p class="wbn" style="color:var(--muted)">and many more...</p></div>
+      </div></div>
+      <div><p class="ms">units</p><div class="ug">
+        <div class="uc"><p class="un">RESTARiZE</p><p class="uy">リスタライズ</p><p class="ud">「キャッチーなデジタル」をコンセプトに掲げるボーカルユニット。かっこよさ、綺麗さ、切なさ、明るさ――人の心が揺れ動く瞬間の煌めきを、デジタルポップサウンドで鮮明に描き出す。キャッチーで聴きやすいのに、聴き込むほど奥行きが見えてくる。トップチャートを狙えるポップ性と、何度も聴きたくなる深みを両立したSoundを追求し続けている。ボーカルは咲良ゆのが担当。透明感のある歌声とデジタルの疾走感を兼ね備えたユニット。</p><div class="ul2"><a href="https://www.tunecore.co.jp/artists/RESTARiZE?lang=ja" target="_blank">TuneCore</a><a href="https://x.com/yuno_singer" target="_blank">咲良ゆの</a></div></div>
+        <div class="uc"><p class="un">PSY.parΛDRUXX</p><p class="uy">サイケデリックパラドラッグス / PllD</p><p class="ud">VtuberStudioEMOVE所属Vtuber「ねこれ（NEQRE）」とALNEARによるコラボユニット。コンセプトは「サイケデリック・デジタル・かっこいい」。音が持つ本来の力と波動を解放し、聴く者の深層意識に問いかける音楽を目指す。独自のサイケデリックトランスサウンドとJ-POP特有のキャッチーさを融合させ、NEQREの独特な作詞センスとALNEARの唯一無二で攻撃的なSoundが重なり合う。単なる音楽消費ではなく、聴く者の生き方や精神を揺り動かすサウンド体験を提供することを最優先に活動中。</p><div class="ul2"><a href="https://www.fanbox.cc/@the1z7qz" target="_blank">FANBOX</a><a href="https://www.youtube.com/channel/UCQrkcFpbc92LS7JlKxiiSdQ" target="_blank">YouTube</a><a href="https://space.bilibili.com/1688076885/dynamic" target="_blank">bilibili</a><a href="https://x.com/WxAxIxMx" target="_blank">NEQRE</a></div></div>
+        <div class="uc"><p class="un">VANDLiX</p><p class="uy">ヴァンドリクス</p><p class="ud">SynthesizerVをVocalにして楽曲を制作するボカロコラボの進化系ボーカルユニット。宮舞モカとMAIをメインに、エモーショナルデジロックやサイバーなエモいPOPSを制作。ロックが本来持つ破壊力と、デジタルが生む精密さを融合させ、エモかっこいいサウンドを追求している。名の由来は "Vanguard of Light × X（未知なる交差）"。</p><div class="ul2"><a href="https://fractalharmonics.booth.pm/" target="_blank">BOOTH</a></div></div>
+        <div class="uc"><p class="un">ATMoSViEr</p><p class="uy">アトモスヴィア</p><p class="ud">インストゥルメンタルユニット。己心造音及びFractalHarmonicsを主眼とし、ジャンルにとらわれず感じたままを音楽に昇華することをメインの作曲方法とする。風景・情景・色から音へ、音から色へ変換されていく――音楽の核となる波動を求める音楽哲学プロジェクト。</p><div class="ul2"><a href="https://fractalharmonics.booth.pm/" target="_blank">BOOTH</a></div></div>
+        <div class="uc"><div class="us">休止中 / vocal募集</div><p class="un">ATRACT:VElll</p><p class="uy">アトラクティベイル</p><p class="ud">心を震わせるエモーショナルなボーカルを探し続けているユニット。共に「音で景色を変える」作品を生み出せるボーカルとの出会いを求め、挑戦し続ける。興味のある方はぜひDMを。</p><div class="ul2"><a href="https://x.com/aruna_ryuki" target="_blank">DM on X</a></div></div>
+      </div></div>
+      <div><p class="ms">contact</p><div class="cb">随時お仕事募集中。短納期・複数案件にも柔軟に対応します。<br>まずはXのDM、またはメールにてお気軽にどうぞ。<br><br><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px"><a class="bc" href="https://x.com/aruna_ryuki" target="_blank">&#8599; DM on X</a><button class="bc" id="copy-email-btn">&#9993; copy email</button></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BGM MODAL -->
+<div class="overlay" id="bmo" style="z-index:1002">
+  <div class="panel" style="max-width:640px;max-height:88vh;display:flex;flex-direction:column">
+    <button class="xbtn" id="bmo-x">&#10005;</button>
+    <div class="bmh"><div class="bmht"><span>RPG BGM samples</span>ALNEAR</div></div>
+    <div class="bmp">
+      <div class="bmp-now" id="bmp-now">&#8212;</div>
+      <div class="bmp-ctrl">
+        <button class="pbtn" id="pb-prev">&#9664;&#9664;</button>
+        <button class="pbtn" id="pb-play">play</button>
+        <button class="pbtn" id="pb-next">&#9654;&#9654;</button>
+        <input class="seek" type="range" id="pb-seek" value="0" min="0" max="100" step="0.1">
+        <span class="ptime" id="pb-time">0:00 / 0:00</span>
+      </div>
+    </div>
+    <div class="bml" id="bml"></div>
+  </div>
+</div>
+
+<script>
+
+var TRACKS = [{"name":"Remains of Machine Civilization","id":"1M9kxm3TNUUCsLzswH1rQA5N8LVm-s0EW"},{"name":"Snow City","id":"1hteevdxnGfk3WTTwgYKyQtduNDJ0L06B"},{"name":"Peaceful Village","id":"1mUJx1Fg_MSPA5r527TNsavzlTmF-fWux"},{"name":"Hidden Village in Forest","id":"1zt-bHNYMknVwozHKfl8kUkMttKfePuen"},{"name":"Highwind Ship","id":"1pmHa_rR5rTXvTF05LVe477z1VOUxmCVv"},{"name":"Unprecedented Crisis","id":"1LwT7QDC8pQ8oKcGBsDRjgxgQmtgnTu4p"},{"name":"Ancient Forest","id":"1xF9jyZAkqB8STrGSoIFM-HbftLXHDZ3_"},{"name":"Burning Desert","id":"1S8IXxHTUYlDu5skxjO5th8JOGvjssD8y"},{"name":"Middle Battle","id":"1HiYrXyqQwgpqbfoeIeNmIMUeRlAqfq6a"},{"name":"Departure","id":"1_-ON6O0ifdOPvm1DzU5-hjFVQfBmnuF0"},{"name":"Normal Battle","id":"1DhjzCyFrsL40nzcnxjP8RKnL4Upn_h0s"},{"name":"Mechanical Float","id":"13_alEKftwJdRcdtXnNVdhwu9tcLu3JYW"},{"name":"Ice Frontier","id":"1P3ZdubLMLQyhuTXmN86jO5gNGRZBag7C"},{"name":"Reverse Victory","id":"16p_c5sMzIzMRAVm8bHdWpCPZMAPaiiW7"},{"name":"Confrontation","id":"1Bqse2mTEWwe0jegyN80DXcHpCAzGOUwD"}];
+
+// ---- HOVER PLAY (thumbnail) ----
+document.getElementById('grid').addEventListener('click', function(e) {
+  var ew = e.target.closest('.ew');
+  if (ew) {
+    e.stopPropagation();
+    var vid = ew.dataset.vid;
+    var f = ew.querySelector('iframe');
+    if (f) { ew.removeChild(f); ew.classList.remove('on'); return; }
+    document.querySelectorAll('.ew.on').forEach(function(w) {
+      var x = w.querySelector('iframe'); if (x) w.removeChild(x); w.classList.remove('on');
+    });
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + vid + '?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    ew.appendChild(iframe);
+    ew.classList.add('on');
+    return;
+  }
+  var ti = e.target.closest('.ti');
+  if (ti) {
+    var track = ti.closest('.track');
+    openVM(track);
+  }
+});
+
+// ---- VIDEO MODAL ----
+function openVM(el) {
+  var vid = el.dataset.vid;
+  var ew = el.querySelector('.ew');
+  var f = ew.querySelector('iframe'); if (f) { ew.removeChild(f); ew.classList.remove('on'); }
+  document.getElementById('vmi').src = 'https://www.youtube-nocookie.com/embed/' + vid + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+  document.getElementById('vmt').textContent = el.dataset.title || '';
+  var l = '';
+  if (el.dataset.brand) l += '<div class="tc"><span class="tl">brand</span>' + el.dataset.brand + '</div>';
+  if (el.dataset.gametitle) l += '<div class="tg2"><span class="tl">title</span>' + el.dataset.gametitle + '</div>';
+  document.getElementById('vml').innerHTML = l;
+  var r = '';
+  (el.dataset.credits || '').split('||').forEach(function(c) {
+    var p = c.split('|'); if (p.length === 2) r += '<p class="cl"><span>' + p[0] + '</span> ' + p[1] + '</p>';
+  });
+  document.getElementById('vmr').innerHTML = '<div class="tcr">' + r + '</div>';
+  var tg = '';
+  (el.dataset.tags || '').split(',').forEach(function(t) { if(t.trim()) tg += '<span class="tag">' + t.trim() + '</span>'; });
+  document.getElementById('vmtg').innerHTML = tg;
+  openOverlay('vmo');
+}
+function closeVM() { closeOverlay('vmo'); document.getElementById('vmi').src = ''; }
+document.getElementById('vmo-x').addEventListener('click', closeVM);
+document.getElementById('vmo').addEventListener('click', function(e) { if(e.target===this) closeVM(); });
+
+// ---- PROFILE MODAL ----
+document.getElementById('btn-profile').addEventListener('click', function() { openOverlay('pmo'); });
+document.getElementById('pmo-x').addEventListener('click', function() { closeOverlay('pmo'); });
+document.getElementById('pmo').addEventListener('click', function(e) { if(e.target===this) closeOverlay('pmo'); });
+
+// ---- OVERLAY HELPERS ----
+function openOverlay(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeOverlay(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+
+// ---- SORT ----
+var cS='new';
+function applyFS() {
+  var tracks = Array.from(document.querySelectorAll('.track'));
+  tracks.sort(function(a,b) {
+    var da=new Date(a.dataset.date), db=new Date(b.dataset.date);
+    return cS==='new' ? db-da : da-db;
+  });
+  var n=1;
+  tracks.forEach(function(t,i) {
+    t.style.order = i;
+    t.querySelector('.num').textContent = String(n++).padStart(2,'0');
+  });
+}
+document.querySelectorAll('.fn[data-sort]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    cS = this.dataset.sort;
+    document.querySelectorAll('.fn[data-sort]').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+    applyFS();
+  });
+});
+applyFS();
+
+// ---- BGM PLAYER ----
+var bgmAudio=null, bgmIdx=-1, bgmPlaying=false;
+function bgmRender() {
+  document.getElementById('bml').innerHTML = TRACKS.map(function(t,i) {
+    return '<div class="bli' + (i===bgmIdx?' on':'') + '" data-i="' + i + '"><span class="bli-n">' + String(i+1).padStart(2,'0') + '</span><span class="bli-t">' + t.name + '</span></div>';
+  }).join('');
+  document.querySelectorAll('.bli').forEach(function(el) {
+    el.addEventListener('click', function() { bgmLoad(parseInt(this.dataset.i), true); });
+  });
+}
+function bgmLoad(i, play) {
+  if(bgmAudio) { bgmAudio.pause(); bgmAudio.src=''; }
+  bgmIdx=i; bgmPlaying=false;
+  bgmAudio = new Audio('https://drive.google.com/uc?export=open&id=' + TRACKS[i].id);
+  bgmAudio.addEventListener('timeupdate', bgmSeekUpdate);
+  bgmAudio.addEventListener('loadedmetadata', bgmSeekUpdate);
+  bgmAudio.addEventListener('ended', function() { bgmLoad((bgmIdx+1)%TRACKS.length, true); });
+  document.getElementById('bmp-now').textContent = TRACKS[i].name;
+  bgmRender();
+  if(play) { bgmAudio.play(); bgmPlaying=true; bgmBtn(); }
+}
+function bgmToggle() {
+  if(!bgmAudio) { bgmLoad(0,true); return; }
+  if(bgmPlaying) { bgmAudio.pause(); bgmPlaying=false; } else { bgmAudio.play(); bgmPlaying=true; }
+  bgmBtn(); bgmRender();
+}
+function bgmBtn() {
+  var b=document.getElementById('pb-play');
+  b.textContent = bgmPlaying ? 'pause' : 'play';
+  b.classList.toggle('on',bgmPlaying);
+}
+function bgmSeekUpdate() {
+  if(!bgmAudio) return;
+  var d=bgmAudio.duration||0, c=bgmAudio.currentTime||0;
+  document.getElementById('pb-seek').value = d ? c/d*100 : 0;
+  document.getElementById('pb-time').textContent = ft(c)+' / '+ft(d);
+}
+function ft(s) { if(!s||isNaN(s)) return '0:00'; return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
+document.getElementById('pb-play').addEventListener('click', bgmToggle);
+document.getElementById('pb-prev').addEventListener('click', function() { bgmLoad(bgmIdx<=0?TRACKS.length-1:bgmIdx-1, bgmPlaying||bgmIdx>=0); });
+document.getElementById('pb-next').addEventListener('click', function() { bgmLoad((bgmIdx+1)%TRACKS.length, true); });
+document.getElementById('pb-seek').addEventListener('input', function() { if(bgmAudio&&bgmAudio.duration) bgmAudio.currentTime=bgmAudio.duration*this.value/100; });
+document.getElementById('btn-bgm').addEventListener('click', function() { bgmRender(); openOverlay('bmo'); });
+document.getElementById('bmo-x').addEventListener('click', function() { closeOverlay('bmo'); });
+document.getElementById('bmo').addEventListener('click', function(e) { if(e.target===this) closeOverlay('bmo'); });
+
+
+// ---- COPY EMAIL ----
+var copyTop = document.getElementById('copy-email-top');
+if(copyTop) copyTop.addEventListener('click', function() {
+  navigator.clipboard.writeText(_em).then(function() {
+    copyTop.textContent = '✓ copied!';
+    setTimeout(function(){ copyTop.textContent = '✉ copy email'; }, 2000);
+  });
+});
+var _em = ['arunar0415','gmail.com'].join('@');
+var copyBtn = document.getElementById('copy-email-btn');
+if(copyBtn) copyBtn.addEventListener('click', function() {
+  navigator.clipboard.writeText(_em).then(function() {
+    copyBtn.textContent = '✓ copied!';
+    setTimeout(function(){ copyBtn.textContent = '✉ copy email'; }, 2000);
+  });
+});
+
+// ---- ESC ----
+document.addEventListener('keydown', function(e) {
+  if(e.key==='Escape') { closeVM(); closeOverlay('pmo'); closeOverlay('bmo'); }
+});
+
+</script>
+</body>
+</html>
