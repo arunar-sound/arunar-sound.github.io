@@ -27,6 +27,21 @@ h1 em{font-style:normal;font-family:'Space Mono',monospace;color:var(--muted);fo
 .fn:hover,.fn.active{border-color:var(--accent);color:var(--accent);background:rgba(232,224,208,.05)}
 .fs{flex:1}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:1px;background:var(--bg)}
+.bgm-grid{display:none;flex-direction:column;gap:1px;background:var(--bg);padding:1px}
+.bgm-card{display:flex;align-items:center;gap:0;background:var(--bg);border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s}
+.bgm-card:hover{background:var(--bg2)}
+.bgm-thumb{width:80px;height:60px;background:#000;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.bgm-thumb img{width:100%;height:100%;object-fit:cover;opacity:.5}
+.bgm-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.bgm-play svg{width:24px;height:24px}
+.bgm-info{flex:1;padding:12px 20px;display:flex;flex-direction:column;gap:4px}
+.bgm-title{font-size:11px;letter-spacing:.1em;color:var(--text)}
+.bgm-tags{display:flex;gap:4px;flex-wrap:wrap}
+.bgm-tag{font-size:9px;letter-spacing:.1em;color:var(--muted);border:1px solid var(--line);padding:2px 6px;text-transform:uppercase}
+.bgm-ctrl{display:flex;align-items:center;gap:12px;padding:12px 24px 12px 0;flex-shrink:0}
+.bgm-bar{display:none;background:var(--bg2);border-top:1px solid var(--line);padding:12px 24px;align-items:center;gap:10px}
+.bgm-bar.active{display:flex}
+.bgm-bpm{font-size:9px;color:var(--muted);letter-spacing:.06em;flex-shrink:0}
 .track{background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .3s}
 .track:hover{background:var(--bg2)}
 .track.hidden{display:none!important}
@@ -137,14 +152,18 @@ footer{padding:40px 48px;border-top:1px solid var(--line);color:var(--muted);fon
   </div>
 </header>
 <div class="fb">
-  <span class="fl">vocal sound works</span>
-  <button class="fn active" data-cat="commercial">official</button>
-  <button class="fn" data-cat="indie">indie</button>
-  <span class="fs"></span>
-  <a class="fn" href="bgm.html">bgm samples</a>
-  <span class="fl">sort</span>
-  <button class="fn active" data-sort="new">new &#8594; old</button>
-  <button class="fn" data-sort="old">old &#8594; new</button>
+  <button class="fn active" id="tab-vocal">vocal sound works</button>
+  <button class="fn" id="tab-bgm">bgm samples</button>
+  <span id="vocal-controls" style="display:contents">
+    <span style="margin-left:8px"></span>
+    <button class="fn active" data-cat="commercial">official</button>
+    <button class="fn" data-cat="indie">indie</button>
+    <span class="fs"></span>
+    <span class="fl">sort</span>
+    <button class="fn active" data-sort="new">new &#8594; old</button>
+    <button class="fn" data-sort="old">old &#8594; new</button>
+  </span>
+  <span id="bgm-controls" style="display:none;contents:none;flex:1;gap:4px;align-items:center"></span>
 </div>
 <div id="unit-filter" style="display:none;padding:8px 48px 12px;gap:4px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line);position:sticky;top:57px;z-index:99;background:var(--bg)"></div>
 <main class="grid" id="grid">
@@ -269,6 +288,15 @@ footer{padding:40px 48px;border-top:1px solid var(--line);color:var(--muted);fon
 <p class="cl"><span>music</span> ALNEAR</p>
 <p class="cl"><span>vocal</span> NEQRE・ぷろぽりす幸子</p></div></div><div class="tags"><span class="tag">vocal</span><span class="tag">track</span></div></div></article>
 </main>
+<div class="bgm-grid" id="bgm-grid">
+  <div class="bgm-card" data-id="1M9kxm3TNUUCsLzswH1rQA5N8LVm-s0EW" data-title="Sample 01" data-tags="fantasy,battle" data-bpm="160">
+    <div class="bgm-thumb"><img src="" alt=""><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info">
+      <span class="bgm-title">Sample 01</span>
+      <div class="bgm-tags"><span class="bgm-tag">fantasy</span><span class="bgm-tag">battle</span><span class="bgm-tag">160 bpm</span></div>
+    </div>
+  </div>
+</div>
 <footer><span class="aph">A place of sound imagination and philosophy</span><button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="bc" style="font-size:9px;letter-spacing:.25em">&#8593; INDEX</button></footer>
 
 <!-- VIDEO MODAL -->
@@ -400,6 +428,51 @@ document.getElementById('pmo').addEventListener('click', function(e) { if(e.targ
 // ---- OVERLAY HELPERS ----
 function openOverlay(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
 function closeOverlay(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+
+// ---- TAB SWITCH ----
+var currentTab = 'vocal';
+var bgmAudio2 = null, bgmPlaying2 = false, currentCard = null;
+
+document.getElementById('tab-vocal').addEventListener('click', function() {
+  currentTab = 'vocal';
+  document.getElementById('tab-vocal').classList.add('active');
+  document.getElementById('tab-bgm').classList.remove('active');
+  document.getElementById('vocal-controls').style.display = 'contents';
+  document.getElementById('bgm-controls').style.display = 'none';
+  document.getElementById('grid').style.display = '';
+  document.getElementById('bgm-grid').style.display = 'none';
+  document.getElementById('unit-filter').style.display = 'none';
+  if(bgmAudio2){ bgmAudio2.pause(); bgmAudio2=null; bgmPlaying2=false; }
+});
+
+document.getElementById('tab-bgm').addEventListener('click', function() {
+  currentTab = 'bgm';
+  document.getElementById('tab-bgm').classList.add('active');
+  document.getElementById('tab-vocal').classList.remove('active');
+  document.getElementById('vocal-controls').style.display = 'none';
+  document.getElementById('bgm-controls').style.display = 'flex';
+  document.getElementById('grid').style.display = 'none';
+  document.getElementById('bgm-grid').style.display = 'flex';
+  document.getElementById('unit-filter').style.display = 'none';
+});
+
+// ---- BGM CARD PLAYER ----
+document.getElementById('bgm-grid').addEventListener('click', function(e) {
+  var card = e.target.closest('.bgm-card');
+  if (!card) return;
+  var id = card.dataset.id;
+  if (currentCard === card && bgmAudio2) {
+    if (bgmPlaying2) { bgmAudio2.pause(); bgmPlaying2=false; }
+    else { bgmAudio2.play(); bgmPlaying2=true; }
+    return;
+  }
+  if (bgmAudio2) { bgmAudio2.pause(); bgmAudio2=null; }
+  currentCard = card;
+  bgmAudio2 = new Audio('https://drive.google.com/uc?export=open&id=' + id);
+  bgmAudio2.volume = 0.5;
+  bgmAudio2.play();
+  bgmPlaying2 = true;
+});
 
 // ---- CATEGORY + SORT ----
 var cS='new', cC='commercial', cU='all';
