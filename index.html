@@ -39,7 +39,6 @@ h1 em{font-style:normal;font-family:'Space Mono',monospace;color:var(--muted);fo
 .bgm-tag{font-size:9px;letter-spacing:.1em;color:var(--muted);border:1px solid var(--line);padding:2px 6px;text-transform:uppercase}
 .bgm-ctrl{display:flex;align-items:center;gap:12px;padding:12px 24px 12px 0;flex-shrink:0}
 .bgm-bar{display:none;background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 48px;align-items:center;gap:10px;position:sticky;top:57px;z-index:98}
-.bgm-bar.active{display:flex}
 .bgm-bpm{font-size:9px;color:var(--muted);letter-spacing:.06em;flex-shrink:0}
 .track{background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .3s}
 .track:hover{background:var(--bg2)}
@@ -639,7 +638,7 @@ function switchToVocal() {
   document.getElementById('grid').style.display = '';
   document.getElementById('bgm-grid').style.display = 'none';
   document.getElementById('bgm-filter').style.display = 'none';
-  document.getElementById('bgm-bar').classList.remove('active');
+  document.getElementById('bgm-bar').style.display = 'none';
   document.querySelectorAll('[data-cat],[data-sort]').forEach(function(b){ b.style.display=''; });
   document.querySelectorAll('.fl,.fs').forEach(function(b){ b.style.display=''; });
   if(bgmAudio2){ bgmAudio2.pause(); bgmAudio2=null; bgmPlaying2=false; }
@@ -653,6 +652,7 @@ function switchToBgm() {
   document.getElementById('grid').style.display = 'none';
   document.getElementById('bgm-grid').style.display = 'grid';
   document.getElementById('bgm-filter').style.display = 'flex';
+  document.getElementById('bgm-bar').style.display = 'flex';
   document.getElementById('unit-filter').style.display = 'none';
   document.querySelectorAll('[data-cat],[data-sort]').forEach(function(b){ b.style.display='none'; });
   document.querySelectorAll('.fl,.fs').forEach(function(b){ b.style.display='none'; });
