@@ -32,6 +32,7 @@ h1 em{font-style:normal;font-family:'Space Mono',monospace;color:var(--muted);fo
 .bgm-card:hover{background:var(--bg2)}
 .bgm-card.playing{background:var(--bg2);border-left:2px solid var(--accent)}
 .bgm-thumb{width:60px;height:60px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-right:1px solid var(--line)}
+.bgm-num{width:32px;flex-shrink:0;font-size:9px;color:var(--muted);letter-spacing:.1em;text-align:center;font-family:'Space Mono',monospace}
 .bgm-play svg{width:24px;height:24px}
 .bgm-info{flex:1;padding:12px 20px;display:flex;flex-direction:column;gap:4px}
 .bgm-title{font-size:11px;letter-spacing:.1em;color:var(--text)}
@@ -186,6 +187,7 @@ footer{padding:40px 48px;border-top:1px solid var(--line);color:var(--muted);fon
     <button class="fn bgf" data-scene="tense">緊迫</button>
     <button class="fn bgf" data-scene="despair">絶望</button>
     <button class="fn bgf" data-scene="heroic">ヒロイック</button>
+    <button class="fn bgf" data-scene="mystic">神秘</button>
   </div>
 </div>
 <div class="bgm-bar" id="bgm-bar">
@@ -661,6 +663,15 @@ function switchToBgm() {
 document.getElementById('tab-vocal').addEventListener('click', switchToVocal);
 document.getElementById('tab-bgm').addEventListener('click', function() {
   if(currentTab === 'bgm') switchToVocal(); else switchToBgm();
+});
+
+// ---- BGM NUMBERING ----
+document.querySelectorAll('.bgm-card').forEach(function(card, i) {
+  card.dataset.bgmNum = i + 1;
+  var num = document.createElement('span');
+  num.className = 'bgm-num';
+  num.textContent = String(i + 1).padStart(2, '0');
+  card.insertBefore(num, card.firstChild);
 });
 
 // ---- BGM FILTER ----
