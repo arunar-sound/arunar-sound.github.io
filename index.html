@@ -30,6 +30,7 @@ h1 em{font-style:normal;font-family:'Space Mono',monospace;color:var(--muted);fo
 .bgm-grid{display:none;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);padding:0}
 .bgm-card{display:flex;align-items:center;gap:0;background:var(--bg);border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s}
 .bgm-card:hover{background:var(--bg2)}
+.bgm-card.playing{background:var(--bg2);border-left:2px solid var(--accent)}
 .bgm-thumb{width:60px;height:60px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-right:1px solid var(--line)}
 .bgm-play svg{width:24px;height:24px}
 .bgm-info{flex:1;padding:12px 20px;display:flex;flex-direction:column;gap:4px}
@@ -189,6 +190,7 @@ footer{padding:40px 48px;border-top:1px solid var(--line);color:var(--muted);fon
   </div>
 </div>
 <div class="bgm-bar" id="bgm-bar">
+  <span id="bgm-now" style="font-size:10px;letter-spacing:.1em;color:var(--text);flex-shrink:0;min-width:80px"></span>
   <button class="pbtn" id="bgm-btn-play">play</button>
   <input class="seek" type="range" id="bgm-seek" value="0" min="0" max="100" step="0.1" style="flex:1">
   <span class="ptime" id="bgm-time">0:00 / 0:00</span>
@@ -641,6 +643,7 @@ function switchToVocal() {
   document.querySelectorAll('[data-cat],[data-sort]').forEach(function(b){ b.style.display=''; });
   document.querySelectorAll('.fl,.fs').forEach(function(b){ b.style.display=''; });
   if(bgmAudio2){ bgmAudio2.pause(); bgmAudio2=null; bgmPlaying2=false; }
+  if(currentCard){ currentCard.classList.remove('playing'); currentCard=null; }
 }
 
 function switchToBgm() {
@@ -719,7 +722,9 @@ function bgmUpdateBar(){
 
 function bgmPlayCard(card){
   if(bgmAudio2){ bgmAudio2.pause(); bgmAudio2=null; }
+  if(currentCard) currentCard.classList.remove('playing');
   currentCard = card;
+  currentCard.classList.add('playing');
   bgmAudio2 = new Audio(card.dataset.src);
   bgmAudio2.volume = document.getElementById('bgm-vol').value / 100;
   bgmAudio2.addEventListener('timeupdate', bgmUpdateBar);
@@ -728,6 +733,7 @@ function bgmPlayCard(card){
   bgmPlaying2 = true;
   document.getElementById('bgm-btn-play').textContent = 'pause';
   document.getElementById('bgm-bar').classList.add('active');
+  document.getElementById('bgm-now').textContent = card.querySelector('.bgm-title').textContent;
 }
 
 document.getElementById('bgm-grid').addEventListener('click', function(e) {
