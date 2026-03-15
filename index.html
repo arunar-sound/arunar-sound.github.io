@@ -164,16 +164,12 @@ footer{padding:40px 48px;border-top:1px solid var(--line);color:var(--muted);fon
 </div>
 <div id="unit-filter" style="display:none;padding:8px 48px 12px;gap:4px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line);position:sticky;top:57px;z-index:99;background:var(--bg)"></div>
 <div id="bgm-filter" style="display:none;flex-direction:column;position:sticky;top:57px;z-index:99;background:var(--bg);border-bottom:1px solid var(--line)">
-  <div style="padding:8px 48px;display:flex;gap:4px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line)">
-    <span class="fl">world</span>
-    <button class="fn bgf active" data-world="all">all</button>
-    <button class="fn bgf" data-world="modern">現代</button>
-    <button class="fn bgf" data-world="fantasy">ファンタジー</button>
-    <button class="fn bgf" data-world="sf">SF</button>
-  </div>
   <div style="padding:8px 48px;display:flex;gap:4px;flex-wrap:wrap;align-items:center">
     <span class="fl">scene</span>
     <button class="fn bgf active" data-scene="all">all</button>
+    <button class="fn bgf" data-scene="modern">現代</button>
+    <button class="fn bgf" data-scene="fantasy">ファンタジー</button>
+    <button class="fn bgf" data-scene="sf">SF</button>
     <button class="fn bgf" data-scene="daily">日常</button>
     <button class="fn bgf" data-scene="morning">朝</button>
     <button class="fn bgf" data-scene="afternoon">昼</button>
@@ -198,6 +194,10 @@ footer{padding:40px 48px;border-top:1px solid var(--line);color:var(--muted);fon
     <button class="fn bgf" data-scene="japanese">和風</button>
     <button class="fn bgf" data-scene="classical">クラシカル</button>
     <button class="fn bgf" data-scene="annui">アンニュイ</button>
+    <button class="fn bgf" data-scene="cute">かわいい</button>
+    <button class="fn bgf" data-scene="anxious">焦燥感</button>
+    <button class="fn bgf" data-scene="tragic">悲壮</button>
+    <button class="fn bgf" data-scene="achievement">達成感</button>
   </div>
 </div>
 <div class="bgm-bar" id="bgm-bar">
@@ -333,177 +333,221 @@ footer{padding:40px 48px;border-top:1px solid var(--line);color:var(--muted);fon
 <div class="bgm-grid" id="bgm-grid">
 
   <!-- 既存2曲 -->
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/オサレSFファンタジー日常系01_01_05_MAS_4416_ST_BPM100.mp3" data-world="sf" data-scene="daily afternoon">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/オサレSFファンタジー日常系01_01_05_MAS_4416_ST_BPM100.mp3" data-world="all" data-scene="sf daily afternoon">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF日常01</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">日常</span><span class="bgm-tag">昼</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/ピアノ切ない青春系01_01_03_TD_4416_ST_BPM150.mp3" data-world="modern" data-scene="emotional nostalgic">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/ピアノ切ない青春系01_01_03_TD_4416_ST_BPM150.mp3" data-world="all" data-scene="modern emotional nostalgic">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代感動01</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">感動</span><span class="bgm-tag">哀愁</span></div></div>
   </div>
 
   <!-- MG系 -->
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM102_日常茉莉花_お嬢様_01_06_02_TD_4416_ST_BPM80.mp3" data-world="sf" data-scene="daily morning">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM102_日常茉莉花_お嬢様_01_06_02_TD_4416_ST_BPM80.mp3" data-world="all" data-scene="sf daily morning">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF日常02</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">日常</span><span class="bgm-tag">朝</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM103_日常姫芽_包容力_03_11_01_TD_4416_ST_BPM100.mp3" data-world="sf" data-scene="daily morning">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM103_日常姫芽_包容力_03_11_01_TD_4416_ST_BPM100.mp3" data-world="all" data-scene="sf daily morning">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF日常03</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">日常</span><span class="bgm-tag">朝</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM104_日常瑠璃_不思議_03_12_03_TD_4416_ST_BPM100.mp3" data-world="sf" data-scene="daily night">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM104_日常瑠璃_不思議_03_12_03_TD_4416_ST_BPM100.mp3" data-world="all" data-scene="sf daily night">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF日常04</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">日常</span><span class="bgm-tag">夜</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM105_シリアス緊張_重すぎない_01_02_02_TD_4416_ST_BPM150.mp3" data-world="sf" data-scene="tense battle">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM105_シリアス緊張_重すぎない_01_02_02_TD_4416_ST_BPM150.mp3" data-world="all" data-scene="sf tense battle">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF緊迫01</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">緊迫</span><span class="bgm-tag">バトル</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM108_シリアス告白_恋愛ピアノ曲_01_06_TD_4416_ST_BPM45.mp3" data-world="modern" data-scene="emotional romance">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM108_シリアス告白_恋愛ピアノ曲_01_06_TD_4416_ST_BPM45.mp3" data-world="all" data-scene="modern emotional romance">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代感動02</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">感動</span><span class="bgm-tag">恋愛</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM109_シリアス決意_クライマックス爽やか疾走感_01_05_04_TD_9616_ST_BPM150.mp3" data-world="sf" data-scene="emotional youth">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM109_シリアス決意_クライマックス爽やか疾走感_01_05_04_TD_9616_ST_BPM150.mp3" data-world="all" data-scene="sf emotional youth">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF感動01</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">感動</span><span class="bgm-tag">青春</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM110_シリアス化妖登場_強いけど女性っぽい感じ_01_07_TD_4416_ST_BPM150.mp3" data-world="sf" data-scene="battle emotional">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM110_シリアス化妖登場_強いけど女性っぽい感じ_01_07_TD_4416_ST_BPM150.mp3" data-world="all" data-scene="sf battle emotional">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SFバトル01</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">バトル</span><span class="bgm-tag">感動</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM112_作戦会議曲_知的な感じ_02_06_01_TD_4416_ST_BPM115.mp3" data-world="sf" data-scene="thinking mystery">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM112_作戦会議曲_知的な感じ_02_06_01_TD_4416_ST_BPM115.mp3" data-world="all" data-scene="sf thinking mystery">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF思考01</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">思考</span><span class="bgm-tag">推理</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM114_バトル通常_化け物退治_02_12_01_TD_4416_ST_BPM160.mp3" data-world="sf" data-scene="battle">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM114_バトル通常_化け物退治_02_12_01_TD_4416_ST_BPM160.mp3" data-world="all" data-scene="sf battle japanese">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
-    <div class="bgm-info"><span class="bgm-title">SFバトル02</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">バトル</span></div></div>
+    <div class="bgm-info"><span class="bgm-title">SFバトル02</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">バトル</span><span class="bgm-tag">和風</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM115_バトル劣勢_戦闘ピンチ_01_06_01_TD_4416_ST_BPM150.mp3" data-world="sf" data-scene="dark battle">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM115_バトル劣勢_戦闘ピンチ_01_06_01_TD_4416_ST_BPM150.mp3" data-world="all" data-scene="sf dark battle">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SFダーク01</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">ダーク</span><span class="bgm-tag">バトル</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM117_バトルボス曲１_ボス_02_11_01_TD_4416_ST_BPM160.mp3" data-world="sf" data-scene="battle heroic">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM117_バトルボス曲１_ボス_02_11_01_TD_4416_ST_BPM160.mp3" data-world="all" data-scene="sf battle heroic">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SFバトル03</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">バトル</span><span class="bgm-tag">ヒロイック</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM118_バトルボス曲２_ガチの悪ボスmetalV_01_11_03_TD_9616_ST_BPM150.mp3" data-world="fantasy" data-scene="battle hard">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM118_バトルボス曲２_ガチの悪ボスmetalV_01_11_03_TD_9616_ST_BPM150.mp3" data-world="all" data-scene="fantasy battle hard">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">ファンタジーバトル01</span><div class="bgm-tags"><span class="bgm-tag">ファンタジー</span><span class="bgm-tag">バトル</span><span class="bgm-tag">ハード</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM119_セレブリティ_高級な感じ_01_10_TD_4416_ST_BPM112.mp3" data-world="fantasy" data-scene="daily classical">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM119_セレブリティ_高級な感じ_01_10_TD_4416_ST_BPM112.mp3" data-world="all" data-scene="fantasy daily classical">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
-    <div class="bgm-info"><span class="bgm-title">ファンタジー日常01</span><div class="bgm-tags"><span class="bgm-tag">ファンタジー</span><span class="bgm-tag">お嬢様</span><span class="bgm-tag">クラシカル</span></div></div>
+    <div class="bgm-info"><span class="bgm-title">ファンタジー貴族01</span><div class="bgm-tags"><span class="bgm-tag">ファンタジー</span><span class="bgm-tag">貴族感</span><span class="bgm-tag">クラシカル</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM121_決めトランス系_スタイリッシュな場面_01_12_TD_4416_ST_BPM125.mp3" data-world="sf" data-scene="stylish night">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM121_決めトランス系_スタイリッシュな場面_01_12_TD_4416_ST_BPM125.mp3" data-world="all" data-scene="sf stylish night">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SFオシャレ01</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">オシャレ</span><span class="bgm-tag">夜</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM123_プロッグトランス系_01_08_TD_4416_ST_BPM125.mp3" data-world="sf" data-scene="stylish night heroic">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/MGBGM123_プロッグトランス系_01_08_TD_4416_ST_BPM125.mp3" data-world="all" data-scene="sf stylish night heroic">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SFオシャレ02</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">オシャレ</span><span class="bgm-tag">夜</span><span class="bgm-tag">ヒロイック</span></div></div>
   </div>
 
   <!-- PK系 -->
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM008_形勢逆転_01_05_TD_4416_ST_BPM150.mp3" data-world="modern" data-scene="battle heroic">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM008_形勢逆転_01_05_TD_4416_ST_BPM150.mp3" data-world="all" data-scene="modern battle heroic">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代バトル01</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">バトル</span><span class="bgm-tag">ヒロイック</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM010_バトルテーマ_01_06_TD_4416_ST_BPM145.mp3" data-world="modern" data-scene="battle heroic">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM010_バトルテーマ_01_06_TD_4416_ST_BPM145.mp3" data-world="all" data-scene="modern battle heroic">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代バトル02</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">バトル</span><span class="bgm-tag">ヒロイック</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM016_勝利する魔法少女_01_05_TD_4416_ST_BPM145.mp3" data-world="fantasy" data-scene="youth emotional">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM016_勝利する魔法少女_01_05_TD_4416_ST_BPM145.mp3" data-world="all" data-scene="fantasy youth emotional">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">ファンタジー感動01</span><div class="bgm-tags"><span class="bgm-tag">ファンタジー</span><span class="bgm-tag">青春</span><span class="bgm-tag">感動</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM018_怒涛のNTR_01_03_TD_4416_ST_BPM100.mp3" data-world="modern" data-scene="dark moody hard">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM018_怒涛のNTR_01_03_TD_4416_ST_BPM100.mp3" data-world="all" data-scene="modern dark moody hard">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代ダーク01</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">ダーク</span><span class="bgm-tag">ムーディー</span><span class="bgm-tag">ハード</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM01_メインテーマ魔法少女_01_06_TD_4416_ST_BPM145.mp3" data-world="fantasy" data-scene="heroic emotional">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM01_メインテーマ魔法少女_01_06_TD_4416_ST_BPM145.mp3" data-world="all" data-scene="fantasy heroic emotional">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">ファンタジーヒロイック01</span><div class="bgm-tags"><span class="bgm-tag">ファンタジー</span><span class="bgm-tag">ヒロイック</span><span class="bgm-tag">感動</span></div></div>
   </div>
 
   <!-- R-katana / nanama -->
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/R-katana53_いい感じの和メロピアノ_01_01_MAS_4416_ST_BPM65.mp3" data-world="modern" data-scene="nostalgic mystic">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/R-katana53_いい感じの和メロピアノ_01_01_MAS_4416_ST_BPM65.mp3" data-world="all" data-scene="modern nostalgic mystic">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代哀愁02</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">哀愁</span><span class="bgm-tag">神秘</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/nanama_13_ドタバタ_揉め事ハイテンポ01_03_TD_4416_ST_BPM140.mp3" data-world="modern" data-scene="gag">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/nanama_13_ドタバタ_揉め事ハイテンポ01_03_TD_4416_ST_BPM140.mp3" data-world="all" data-scene="modern gag">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代ギャグ01</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">ギャグ</span></div></div>
   </div>
 
   <!-- katana系（SF） -->
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana10_トレーニング系_05_02_10_MAS_4416_ST_BPM140_ST-END.mp3" data-world="sf" data-scene="japanese battle">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana10_トレーニング系_05_02_10_MAS_4416_ST_BPM140_ST-END.mp3" data-world="all" data-scene="sf japanese battle">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF和風01</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">和風</span><span class="bgm-tag">バトル</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana11_ハイテンションギャグ系_01_10_MAS_4416_ST_BPM170_ST-END.mp3" data-world="modern" data-scene="gag">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana11_ハイテンションギャグ系_01_10_MAS_4416_ST_BPM170_ST-END.mp3" data-world="all" data-scene="modern gag">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代ギャグ02</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">ギャグ</span><span class="bgm-tag">ハイテンション</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana20_通常ボケ01_07_MAS_4416_ST_BPM150_ST-END.mp3" data-world="modern" data-scene="gag">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana20_通常ボケ01_07_MAS_4416_ST_BPM150_ST-END.mp3" data-world="all" data-scene="modern gag">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代ギャグ03</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">ギャグ</span><span class="bgm-tag">ボケ</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana21_刀鍛冶のテーマ_02_08_MAS_4416_ST_BPM60_ST-END.mp3" data-world="modern" data-scene="japanese nostalgic mystic">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana21_刀鍛冶のテーマ_02_08_MAS_4416_ST_BPM60_ST-END.mp3" data-world="all" data-scene="modern japanese nostalgic mystic">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代和風01</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">和風</span><span class="bgm-tag">神秘</span><span class="bgm-tag">哀愁</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana23_必殺技_01_10_MAS_4416_ST_BPM180_ST-END.mp3" data-world="modern" data-scene="battle hard japanese">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana23_必殺技_01_10_MAS_4416_ST_BPM180_ST-END.mp3" data-world="all" data-scene="modern battle hard japanese">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代バトル03</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">バトル</span><span class="bgm-tag">ハード</span><span class="bgm-tag">和風</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana27_悲しい小_02_08_MAS_4416_ST_BPM100_ST-END.mp3" data-world="modern" data-scene="nostalgic emotional">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana27_悲しい小_02_08_MAS_4416_ST_BPM100_ST-END.mp3" data-world="all" data-scene="modern nostalgic emotional">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代哀愁03</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">哀愁</span><span class="bgm-tag">感動</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana28_日常汎用02_01_08_MAS_4416_ST_BPM128_ST-END.mp3" data-world="sf" data-scene="daily morning">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana28_日常汎用02_01_08_MAS_4416_ST_BPM128_ST-END.mp3" data-world="all" data-scene="sf daily morning">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF日常05</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">日常</span><span class="bgm-tag">朝</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana29_妖刀テーマ_03_09_MAS_4416_ST_BPM155_ST-END.mp3" data-world="modern" data-scene="dark mystic tense">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana29_妖刀テーマ_03_09_MAS_4416_ST_BPM155_ST-END.mp3" data-world="all" data-scene="modern dark mystic tense">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代ダーク01</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">神秘</span><span class="bgm-tag">ダーク</span><span class="bgm-tag">緊迫</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana31_街とか汎用かも_01_14_MAS_4416_ST_BPM125_ST-END.mp3" data-world="sf" data-scene="daily afternoon">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana31_街とか汎用かも_01_14_MAS_4416_ST_BPM125_ST-END.mp3" data-world="all" data-scene="sf daily afternoon">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF日常06</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">日常</span><span class="bgm-tag">昼</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana32_決め曲トランス01_02_17_MAS_4416_ST_BPM140_ST-END.mp3" data-world="sf" data-scene="battle heroic emotional">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana32_決め曲トランス01_02_17_MAS_4416_ST_BPM140_ST-END.mp3" data-world="all" data-scene="sf battle heroic emotional">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SFバトル04</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">バトル</span><span class="bgm-tag">ヒロイック</span><span class="bgm-tag">感動</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana34_エレクトロハウス01_01_08_MAS_4416_ST_BPM128_ST-END.mp3" data-world="sf" data-scene="daily stylish">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana34_エレクトロハウス01_01_08_MAS_4416_ST_BPM128_ST-END.mp3" data-world="all" data-scene="sf daily stylish">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SF日常07</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">日常</span><span class="bgm-tag">オシャレ</span><span class="bgm-tag">アンニュイ</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana38_絶望_01_04_MAS_4416_ST_BPM80_ST-END.mp3" data-world="fantasy" data-scene="dark mystic despair">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana38_絶望_01_04_MAS_4416_ST_BPM80_ST-END.mp3" data-world="all" data-scene="fantasy dark mystic despair">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">ファンタジーダーク01</span><div class="bgm-tags"><span class="bgm-tag">ファンタジー</span><span class="bgm-tag">ダーク</span><span class="bgm-tag">神秘</span><span class="bgm-tag">絶望</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana39_悲しい大_01_05_MAS_4416_ST_BPM150_ST-END.mp3" data-world="modern" data-scene="nostalgic despair emotional">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana39_悲しい大_01_05_MAS_4416_ST_BPM150_ST-END.mp3" data-world="all" data-scene="modern nostalgic despair emotional">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代哀愁04</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">哀愁</span><span class="bgm-tag">絶望</span><span class="bgm-tag">感動</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana40_悲しい刀道_01_05_MAS_4416_ST_BPM150_ST-END.mp3" data-world="modern" data-scene="japanese nostalgic">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana40_悲しい刀道_01_05_MAS_4416_ST_BPM150_ST-END.mp3" data-world="all" data-scene="modern japanese nostalgic">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代和風02</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">和風</span><span class="bgm-tag">哀愁</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana41_【フリージア】電脳戦クライマックス_01_12_MAS_4416_ST_BPM150_ST-END.mp3" data-world="sf" data-scene="battle stylish">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana41_【フリージア】電脳戦クライマックス_01_12_MAS_4416_ST_BPM150_ST-END.mp3" data-world="all" data-scene="sf battle stylish">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SFバトル05</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">バトル</span><span class="bgm-tag">オシャレ</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana45_記憶_02_06_MAS_4416_ST_BPM80_ST-END.mp3" data-world="modern" data-scene="nostalgic emotional">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana45_記憶_02_06_MAS_4416_ST_BPM80_ST-END.mp3" data-world="all" data-scene="modern nostalgic emotional">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">現代哀愁05</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">哀愁</span><span class="bgm-tag">感動</span></div></div>
   </div>
-  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana50_フリージア電脳_01_09_MAS_4416_ST_BPM128_ST-END.mp3" data-world="sf" data-scene="stylish thinking">
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/katana50_フリージア電脳_01_09_MAS_4416_ST_BPM128_ST-END.mp3" data-world="all" data-scene="sf stylish thinking">
     <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
     <div class="bgm-info"><span class="bgm-title">SFオシャレ03</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">オシャレ</span><span class="bgm-tag">思考</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM005_リップルのテーマ_01_10_TD_4416_ST_BPM160.mp3" data-world="all" data-scene="modern gag cute">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">現代ギャグ04</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">ギャグ</span><span class="bgm-tag">かわいい</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM006_ジャーク襲来_01_07_TD_4416_ST_BPM160.mp3" data-world="all" data-scene="fantasy dark tense anxious">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">ファンタジーダーク02</span><div class="bgm-tags"><span class="bgm-tag">ファンタジー</span><span class="bgm-tag">ダーク</span><span class="bgm-tag">焦燥感</span><span class="bgm-tag">緊迫</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM013_記憶を消す柚葉_01_09_TD_4416_ST_BPM60.mp3" data-world="all" data-scene="modern tragic classical mystic">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">現代悲壮01</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">悲壮</span><span class="bgm-tag">クラシカル</span><span class="bgm-tag">神秘</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM04_日常_01_06_TD_4416_ST_BPM80.mp3" data-world="all" data-scene="modern daily afternoon">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">現代日常01</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">日常</span><span class="bgm-tag">昼</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/PK_BGM009_肇の見せるH動画_01_06_TD_4416_ST_BPM65.mp3" data-world="all" data-scene="modern thinking mystery dark">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">現代思考02</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">思考</span><span class="bgm-tag">推理</span><span class="bgm-tag">ダーク</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/AI_BGM03_shop_01_06_MAS_4824_ST_BPM100.mp3" data-world="all" data-scene="sf thinking mystery annui">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">SF思考02</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">思考</span><span class="bgm-tag">推理</span><span class="bgm-tag">アンニュイ</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/AI_BGM_gacha_01_04_TD_4824_ST_BPM145.mp3" data-world="all" data-scene="fantasy classical emotional achievement">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">ファンタジー感動02</span><div class="bgm-tags"><span class="bgm-tag">ファンタジー</span><span class="bgm-tag">クラシカル</span><span class="bgm-tag">感動</span><span class="bgm-tag">達成感</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/AI_BGM14_Lab_01_06_TD_4824_ST_BPM100.mp3" data-world="all" data-scene="sf moody daily">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">SFオシャレ04</span><div class="bgm-tags"><span class="bgm-tag">SF</span><span class="bgm-tag">オシャレ</span><span class="bgm-tag">日常</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/AI_BGM24_Battle_Arena_01_07_MAS_4824_ST_BPM148.mp3" data-world="all" data-scene="modern battle hard">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">現代バトル04</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">バトル</span><span class="bgm-tag">ハード</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/AI_BGM25_Battle_Boss_1_01_11_TD_4824_ST_BPM145.mp3" data-world="all" data-scene="fantasy battle mystic anxious">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">ファンタジーバトル02</span><div class="bgm-tags"><span class="bgm-tag">ファンタジー</span><span class="bgm-tag">バトル</span><span class="bgm-tag">神秘</span><span class="bgm-tag">焦燥感</span></div></div>
+  </div>
+  <div class="bgm-card" data-src="https://arunar-sound.github.io/bgm/AI_BGM27_Raid_01_05_TD_4824_ST_BPM145.mp3" data-world="all" data-scene="modern battle hard heroic">
+    <div class="bgm-thumb"><div class="bgm-play"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#e8e0d0" stroke-width="1"/><polygon points="14,11 26,18 14,25" fill="#e8e0d0"/></svg></div></div>
+    <div class="bgm-info"><span class="bgm-title">現代バトル05</span><div class="bgm-tags"><span class="bgm-tag">現代</span><span class="bgm-tag">バトル</span><span class="bgm-tag">ハード</span><span class="bgm-tag">ヒロイック</span></div></div>
   </div>
 
 </div>
@@ -685,37 +729,18 @@ document.querySelectorAll('.bgm-card').forEach(function(card, i) {
 });
 
 // ---- BGM FILTER ----
-var bgmWorld = 'all', bgmScenes = [];
+var bgmScenes = [];
 
 function applyBgmFilter() {
   document.querySelectorAll('.bgm-card').forEach(function(card) {
-    var w = card.dataset.world || '';
     var s = (card.dataset.scene || '').split(' ');
-    var wOk = bgmWorld === 'all' || w === bgmWorld;
     var sOk = bgmScenes.length === 0 || bgmScenes.every(function(sc) {
-      return s.some(function(cs) { return cs === sc || (sc === 'daily' && cs.startsWith('daily')); });
+      return s.some(function(cs) { return cs === sc; });
     });
     if(card.dataset.hidden) return;
-    card.style.display = (wOk && sOk) ? '' : 'none';
+    card.style.display = sOk ? '' : 'none';
   });
 }
-
-document.querySelectorAll('.bgf[data-world]').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    var w = this.dataset.world;
-    if(w !== 'all' && bgmWorld === w) {
-      // 同じボタンを再押し → allに戻す
-      bgmWorld = 'all';
-      document.querySelectorAll('.bgf[data-world]').forEach(function(b){ b.classList.remove('active'); });
-      document.querySelector('.bgf[data-world="all"]').classList.add('active');
-    } else {
-      document.querySelectorAll('.bgf[data-world]').forEach(function(b){ b.classList.remove('active'); });
-      this.classList.add('active');
-      bgmWorld = w;
-    }
-    applyBgmFilter();
-  });
-});
 
 document.querySelectorAll('.bgf[data-scene]').forEach(function(btn) {
   btn.addEventListener('click', function() {
